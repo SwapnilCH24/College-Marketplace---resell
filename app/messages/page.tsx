@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import { db } from "@/lib/firebase"; 
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import ChatClient from "./ChatClient";
 import { authOptions } from "@/lib/auth";
 
@@ -8,13 +9,22 @@ export default async function Messages() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) redirect("/login");
   
-  const currentUser = await prisma.user.findUnique({ where: { email: session.user.email } });
-  if (!currentUser) redirect("/login");
+  // 1. Fetch Current User from Firestore
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("email", "==", session.user.email), limit(1));
+  const userSnap = await getDocs(q);
 
-  const users = await prisma.user.findMany({ 
-    where: { id: { not: currentUser.id } },
-    select: { id: true, name: true, department: true }
-  });
+  if (userSnap.empty) redirect("/login");
+  
+  // FIX: Select the first document in the array
+const userDoc = userSnap.docs; 
+const currentUser = { id: userDoc.id, ...userDoc.data() };
+
+  // 2. Fetch All Users
+  const allUsersSnap = await getDocs(collection(db, "users"));
+  const users = allUsersSnap.docs
+    .map(doc => ({ id: doc.id, ...doc.data() }))
+    .filter((user: any) => user.id !== currentUser.id);
 
   return <ChatClient currentUser={currentUser} allUsers={users} />;
 }
