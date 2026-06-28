@@ -17,9 +17,11 @@ export default function Home() {
           </p>
           
           <div className="flex gap-4 justify-center">
-            <Link href="/marketplace" className="px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-all">
-              Explore Listings
-            </Link>
+            <Link href="/marketplace">
+  <div className="bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-neutral-200 transition">
+    Explore Listings
+  </div>
+</Link>
             <Link href="/sell" className="px-8 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold rounded-xl transition-all">
               List an Item
             </Link>

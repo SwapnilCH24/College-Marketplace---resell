@@ -7,7 +7,9 @@ import { authOptions } from '@/lib/auth';
 async function getUserId(email: string) {
   const q = query(collection(db, "users"), where("email", "==", email), limit(1));
   const snap = await getDocs(q);
-  return snap.empty ? null : snap.docs.id;
+  return snap.docs.length > 0
+  ? snap.docs[0].id
+  : null;
 }
 
 export async function GET(request: Request) {

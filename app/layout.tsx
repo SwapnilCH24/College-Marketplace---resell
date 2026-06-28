@@ -1,12 +1,12 @@
-import Navbar from "@/components/shared/Navbar";
-import "./globals.css";
-export const metadata = { title: "Campus Premium Marketplace", description: "Trusted Escrow Ecosystem." };
+import Navbar from '@/components/shared/Navbar';
+import './globals.css'; // This line is the only thing that matters for your CSS
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className="font-sans bg-black text-white antialiased">
+    <html lang="en">
+      <body className="bg-black text-white min-h-screen">
         <Navbar />
-        <main className="pt-20">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );
