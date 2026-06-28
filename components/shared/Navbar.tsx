@@ -22,7 +22,7 @@ export default function Navbar() {
           href="/"
           className="font-bold text-lg md:text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
         >
-          ICFAI Market
+          ICFAI MARKETPLACE
         </Link>
 
         {/* Desktop */}
