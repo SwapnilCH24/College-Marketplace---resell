@@ -14,9 +14,12 @@ export default function SellPage() {
 
   const handleImageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files;
-      setImage(file as File);
-      setPreview(URL.createObjectURL(file as Blob));
+      const file = e.target.files?.[0];
+
+if (!file) return;
+
+setImage(file);
+setPreview(URL.createObjectURL(file));
     }
   };
 

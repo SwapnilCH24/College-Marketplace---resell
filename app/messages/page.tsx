@@ -17,8 +17,16 @@ export default async function Messages() {
   if (userSnap.empty) redirect("/login");
   
   // FIX: Select the first document in the array
-const userDoc = userSnap.docs; 
-const currentUser = { id: userDoc.id, ...userDoc.data() };
+const userDoc = userSnap.docs[0];
+
+if (!userDoc) {
+  throw new Error("User document not found");
+}
+
+const currentUser = {
+  id: userDoc.id,
+  ...userDoc.data(),
+};
 
   // 2. Fetch All Users
   const allUsersSnap = await getDocs(collection(db, "users"));

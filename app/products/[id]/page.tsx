@@ -21,7 +21,7 @@ export default function ProductDetailPage() {
   return (
     <main className="p-10 max-w-2xl mx-auto text-white">
       {p.imageUrl && <img src={p.imageUrl} className="w-full h-80 object-cover rounded-xl" />}
-      <h1 className="text-4xl font-bold mt-6">{p.tile}</h1>
+      <h1 className="text-4xl font-bold mt-6">{p.title}</h1>
       <p className="text-2xl text-indigo-400 mt-2">₹{p.price}</p>
       <p className="mt-4">{p.description}</p>
       <p className="mt-2 text-white/50">Condition: {p.condition}</p>

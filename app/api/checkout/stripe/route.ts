@@ -24,7 +24,9 @@ export async function POST(request: Request) {
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("email", "==", session.user.email), limit(1));
   const userSnap = await getDocs(q);
-  const buyerId = userSnap.empty ? "unknown" : userSnap.docs.id;
+  const buyerId = userSnap.empty
+  ? "unknown"
+  : userSnap.docs[0].id;
 
   // Add Transaction to Firebase
   await addDoc(collection(db, "transactions"), {
