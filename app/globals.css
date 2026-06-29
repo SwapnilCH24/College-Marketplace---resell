@@ -2,127 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================================
-   Design Tokens
-========================================= */
-
 :root {
-  color-scheme: dark;
+  --bg: #050505;
+  --surface: #0b0b0f;
+  --surface-2: #111116;
 
-  --color-bg: #050505;
-  --color-surface: #0f0f0f;
-  --color-text: #ffffff;
-  --color-text-muted: #a1a1aa;
+  --text: #ffffff;
+  --text-muted: #a1a1aa;
 
-  --color-primary: #3b82f6;
-  --color-primary-rgb: 59 130 246;
+  --primary: #3b82f6;
+  --secondary: #8b5cf6;
 
-  --selection-bg: rgb(var(--color-primary-rgb) / 0.35);
+  --border: rgba(255,255,255,0.08);
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --shadow-lg:
+    0 10px 40px rgba(0,0,0,0.45);
 
-  --transition-fast: 150ms;
-  --transition-normal: 250ms;
-
-  --glow-blur: 120px;
-  --glow-opacity: 0.2;
+  --glass:
+    rgba(255,255,255,0.04);
 }
-
-/* =========================================
-   Base
-========================================= */
 
 html {
   scroll-behavior: smooth;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  hanging-punctuation: first last;
 }
 
 body {
-  min-height: 100vh;
-  overflow-x: clip;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-/* =========================================
-   Accessibility
-========================================= */
-
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(59,130,246,0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(139,92,246,0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(59,130,246,0.08),
+      transparent 40%
+    ),
+    var(--bg);
 }
 
 ::selection {
-  background: var(--selection-bg);
+  background: rgba(59,130,246,0.4);
 }
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* =========================================
-   Media Defaults
-========================================= */
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-/* =========================================
-   Utilities
-========================================= */
 
 .glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(var(--glow-blur));
-  opacity: var(--glow-opacity);
+  filter: blur(140px);
+  opacity: 0.25;
   pointer-events: none;
   will-change: transform;
-  transform: translateZ(0);
 }
 
-.surface {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
 }
 
-.text-muted {
-  color: var(--color-text-muted);
+.card-premium {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.02)
+    );
+
+  border: 1px solid var(--border);
+
+  box-shadow: var(--shadow-lg);
+
+  backdrop-filter: blur(24px);
 }
 
-.transition-default {
+.text-gradient {
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #3b82f6,
+      #8b5cf6
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: "";
+
+  position: absolute;
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59,130,246,.7),
+      rgba(139,92,246,.7)
+    );
+
+  z-index: -1;
+
+  opacity: .4;
+}
+
+.hover-lift {
   transition:
-    transform var(--transition-normal) ease,
-    opacity var(--transition-normal) ease,
-    background-color var(--transition-normal) ease;
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.55);
 }
